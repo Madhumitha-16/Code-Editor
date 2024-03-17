@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+    <title>Live Code Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/dracula.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/3024-day.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/hopscotch.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/abcdef.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/lesser-dark.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/material.min.css">
+
+    <link rel="stylesheet" href="style.css" />
+    
+</head>
+<body>
+    <!-- <script type="text/javascript" src="app.js"></script> -->
+    <input type="text" id="room-id" placeholder="Enter Room ID">
+    <button id="join-room">Join Room</button>
+    <button id="create-room">Create Room</button>
+    <div class="row">
+        <div class="column">
+        <div class="column">
+        <h1 style="margin-left: 20px; color: #fff;">Live Code Editor</h1>   
+      </div>
+      </div>
+      <div class="column">
+        <div class="row">
+      <div class="column">
+        <h1 style="margin-left: 50px;color: #fff;">Output</h1>
+      </div>
+      <div class="column" id="theme">
+        <div class="row" >
+        <h4 style="color: #fff;">Font Size</h4>
+        <select id="font-size-select">
+          <option value="12px">Small</option>
+          <option value="16px">Medium</option>
+          <option value="20px">Large</option>
+        </select>
+      </div>
+      </div>
+      <div class="column" id="theme">
+        <div class="row">
+        <h4 style="color: #fff;">Themes</h4>
+      <select id="theme-select" >
+        <option value="default">Default</option>
+        <option value="monokai">Monokai</option>
+        <option value="dracula">Dracula</option>
+        <option value="3024-day">3024-day</option>
+        <option value="abcdef">abcdef</option>
+        <option value="hopscotch">Hopscotch</option>
+        <option value="lesser-dark">Lesser-dark</option>
+        <option value="material">Material</option>
+      </select>
+      </div>
+      </div>
+        <div class="column">
+          <button style="margin-top: 25px; margin-right: 10px;" class="save-btn">Save Project</button>
+        </div>
+      </div>
+      </div>
+      </div>
+      <div class="row1">
+        <div class="column">
+        <div class="editorContainer">
+      
+          <div class="wrapper">
+            <div class="title">
+              <div class="main-title">
+                <img class="icon" src="../icons/html-icon.svg" alt="" />
+                <h2>HTML</h2>
+              </div>
+              <button class="control maximize">
+                <i class="fas fa-expand-alt" style="color: #fff"></i>
+              </button>
+            </div>
+            <textarea rows="4" cols="50" name="html" class="code-editor" id="html" autofocus ></textarea>
+            <button class="clear" data-textarea="html">clear</button>
+            <button class="copy-btn copy-html" onclick="copyToClipboard('html')" >
+              <span>Copy HTML</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                <path d="M4.85 11.15l6.3-6.3" overflow="visible" fill="none" stroke="white" stroke-width="1.463"/>
+                <path d="M12.152 0a1.984 1.984 0 0 0-.33.04c-.867.173-1.42.78-1.898 1.26L8.487 2.738c-.48.48-1.087 1.03-1.26 1.898-.075.37-.044.76.096 1.167l1.77-1.77c.102-.113.215-.23.337-.352l1.437-1.435c.48-.48.886-.83 1.217-.896a.877.877 0 0 1 .277-.01c.313.034.738.245 1.398.905.88.88.96 1.342.895 1.673-.066.33-.417.736-.896 1.216L12.32 6.57c-.124.123-.242.237-.356.34l-1.767 1.77c.407.14.797.17 1.168.096.867-.173 1.42-.78 1.898-1.26l1.437-1.44c.48-.48 1.087-1.03 1.26-1.898.174-.867-.223-1.84-1.26-2.878C13.923.522 13.18.105 12.492.017a2.125 2.125 0 0 0-.34-.016zM4.965 7.19a1.984 1.984 0 0 0-.33.038c-.867.174-1.42.782-1.898 1.26L1.3 9.925c-.48.48-1.087 1.03-1.26 1.898-.174.868.223 1.842 1.26 2.88 1.037 1.035 2.01 1.432 2.878 1.26.867-.175 1.42-.783 1.898-1.262l1.437-1.436c.48-.48 1.087-1.03 1.26-1.898.075-.37.044-.76-.096-1.168l-1.765 1.765c-.104.114-.218.233-.342.357l-1.437 1.437c-.48.48-.886.83-1.217.895-.33.066-.793-.016-1.673-.895-.88-.88-.96-1.343-.895-1.673.066-.33.417-.737.896-1.216L3.68 9.43c.124-.122.24-.236.355-.34l1.767-1.767a2.498 2.498 0 0 0-.497-.12 2.125 2.125 0 0 0-.34-.015z" fill="white"/>
+              </svg>
+            </button>
+          </div>
+      
+      
+          <div class="wrapper">
+            <div class="title">
+              <div class="main-title">
+                <img class="icon" src="../icons/css-icon.svg" alt="" />
+                <h2>CSS</h2>
+              </div>
+              <button class="control maximize">
+                <i class="fas fa-expand-alt" style="color: #fff"></i>
+              </button>
+            </div>
+            <textarea rows="4" cols="50" name="css" class="code-editor" id="css" cols="auto" rows="auto" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+            <button class="clear" data-textarea="css">clear</button>
+            <button class="copy-btn copy-css" onclick="copyToClipboard('css')">
+              <span>Copy CSS</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                <path d="M4.85 11.15l6.3-6.3" overflow="visible" fill="none" stroke="white" stroke-width="1.463"/>
+                <path d="M12.152 0a1.984 1.984 0 0 0-.33.04c-.867.173-1.42.78-1.898 1.26L8.487 2.738c-.48.48-1.087 1.03-1.26 1.898-.075.37-.044.76.096 1.167l1.77-1.77c.102-.113.215-.23.337-.352l1.437-1.435c.48-.48.886-.83 1.217-.896a.877.877 0 0 1 .277-.01c.313.034.738.245 1.398.905.88.88.96 1.342.895 1.673-.066.33-.417.736-.896 1.216L12.32 6.57c-.124.123-.242.237-.356.34l-1.767 1.77c.407.14.797.17 1.168.096.867-.173 1.42-.78 1.898-1.26l1.437-1.44c.48-.48 1.087-1.03 1.26-1.898.174-.867-.223-1.84-1.26-2.878C13.923.522 13.18.105 12.492.017a2.125 2.125 0 0 0-.34-.016zM4.965 7.19a1.984 1.984 0 0 0-.33.038c-.867.174-1.42.782-1.898 1.26L1.3 9.925c-.48.48-1.087 1.03-1.26 1.898-.174.868.223 1.842 1.26 2.88 1.037 1.035 2.01 1.432 2.878 1.26.867-.175 1.42-.783 1.898-1.262l1.437-1.436c.48-.48 1.087-1.03 1.26-1.898.075-.37.044-.76-.096-1.168l-1.765 1.765c-.104.114-.218.233-.342.357l-1.437 1.437c-.48.48-.886.83-1.217.895-.33.066-.793-.016-1.673-.895-.88-.88-.96-1.343-.895-1.673.066-.33.417-.737.896-1.216L3.68 9.43c.124-.122.24-.236.355-.34l1.767-1.767a2.498 2.498 0 0 0-.497-.12 2.125 2.125 0 0 0-.34-.015z" fill="white"/>
+              </svg>
+            </button>
+          </div>
+       <div class="wrapper">
+            <div class="title">
+              <div class="main-title">
+                <img class="icon" src="../icons/JS-icon.svg" alt="" />
+                <h2>JS</h2>
+              </div>
+              <button class="control maximize">
+                <i class="fas fa-expand-alt" style="color: #fff"></i>
+              </button>
+            </div>
+            <textarea rows="4" cols="50" name="js" id="js" class="code-editor" cols="auto" rows="auto" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+            <button class="clear" data-textarea="js">clear</button>
+            <button class="copy-btn copy-js" onclick="copyToClipboard('js')">
+              <span>Copy JS</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                <path d="M4.85 11.15l6.3-6.3" overflow="visible" fill="none" stroke="white" stroke-width="1.463"/>
+                <path d="M12.152 0a1.984 1.984 0 0 0-.33.04c-.867.173-1.42.78-1.898 1.26L8.487 2.738c-.48.48-1.087 1.03-1.26 1.898-.075.37-.044.76.096 1.167l1.77-1.77c.102-.113.215-.23.337-.352l1.437-1.435c.48-.48.886-.83 1.217-.896a.877.877 0 0 1 .277-.01c.313.034.738.245 1.398.905.88.88.96 1.342.895 1.673-.066.33-.417.736-.896 1.216L12.32 6.57c-.124.123-.242.237-.356.34l-1.767 1.77c.407.14.797.17 1.168.096.867-.173 1.42-.78 1.898-1.26l1.437-1.44c.48-.48 1.087-1.03 1.26-1.898.174-.867-.223-1.84-1.26-2.878C13.923.522 13.18.105 12.492.017a2.125 2.125 0 0 0-.34-.016zM4.965 7.19a1.984 1.984 0 0 0-.33.038c-.867.174-1.42.782-1.898 1.26L1.3 9.925c-.48.48-1.087 1.03-1.26 1.898-.174.868.223 1.842 1.26 2.88 1.037 1.035 2.01 1.432 2.878 1.26.867-.175 1.42-.783 1.898-1.262l1.437-1.436c.48-.48 1.087-1.03 1.26-1.898.075-.37.044-.76-.096-1.168l-1.765 1.765c-.104.114-.218.233-.342.357l-1.437 1.437c-.48.48-.886.83-1.217.895-.33.066-.793-.016-1.673-.895-.88-.88-.96-1.343-.895-1.673.066-.33.417-.737.896-1.216L3.68 9.43c.124-.122.24-.236.355-.34l1.767-1.767a2.498 2.498 0 0 0-.497-.12 2.125 2.125 0 0 0-.34-.015z" fill="white"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="outputContainer" style="background-color: #fff; border-radius: 10px;">
+          <iframe id="output" title="output" frameborder="0" width="100%" height="100%" ></iframe>
+            <div id="errorWindow">
+              <h3 class="errorTitle">Console</h3>
+              <div id="errorMessages"></div>
+            </div>
+        </div>
+
+    <!-- <div>
+        <h3>HTML</h3>
+        <textarea id="html-editor" class="code-editor" placeholder="HTML code"></textarea>
+    </div>
+
+    <div>
+        <h3>CSS</h3>
+        <textarea id="css-editor" class="code-editor" placeholder="CSS code"></textarea>
+    </div>
+
+    <div>
+        <h3>JavaScript</h3>
+        <textarea id="js-editor" class="code-editor" placeholder="JavaScript code"></textarea>
+    </div> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closebrackets.min.js"></script>
+    <script src="codemirror/addon/edit/closetag.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script>
+        const socket = io();
+        var html = document.getElementById('html').innerHTML;
+var css = document.getElementById('css');
+var js = document.getElementById('js');
+var code = document.getElementById('output').contentWindow.document;
+
+function compile() {
+  var htmlCode = htmlEditor.getValue();
+  let cssCode = "<style>" + cssEditor.getValue() + "</style>";
+  let scriptCode = jsEditor.getValue();
+  let output = document.querySelector(".outputContainer #output");
+  output.contentDocument.body.innerHTML = htmlCode + cssCode;
+  output.contentWindow.eval(scriptCode);
+}
+
+        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html'), {
+            lineNumbers: true,
+            mode: 'htmlmixed', 
+            autoCloseTags: true, 
+            autoCloseBrackets: true 
+        });
+
+        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css'), {
+            lineNumbers: true,
+            mode: 'css',
+            autoCloseBrackets: true
+        });
+
+        const jsEditor = CodeMirror.fromTextArea(document.getElementById('js'), {
+            lineNumbers: true,
+            mode: 'javascript',
+            autoCloseBrackets: true
+        });
+
+        let lastCode='';
+
+        // Store cursor positions for each editor
+        let htmlCursor=null, cssCursor=null, jsCursor=null;
+
+        // Event listeners for Join Room and Create Room buttons
+        document.getElementById('join-room').addEventListener('click', () => {
+            const roomId = document.getElementById('room-id').value.trim();
+            if (roomId) {
+                socket.emit('join room', roomId);
+            }
+        });
+
+        document.getElementById('create-room').addEventListener('click', () => {
+            socket.emit('create room');
+        });
+
+        // Event listeners for code changes in each editor
+        htmlEditor.on('change', _.debounce(() => {
+            const code = htmlEditor.getValue();
+            if(code!= lastCode){
+                const cursor = htmlEditor.getCursor();
+                socket.emit('code change', { code, cursor, language: 'html' });
+                lastCode = code;
+            }
+        }, 10));
+
+        cssEditor.on('change', _.debounce(() => {
+            const code = cssEditor.getValue();
+            const cursor = cssEditor.getCursor();
+            socket.emit('code change', { code, cursor, language: 'css' });
+        }, 10));
+
+        jsEditor.on('change', _.debounce(() => {
+            const code = jsEditor.getValue();
+            const cursor = jsEditor.getCursor();
+            socket.emit('code change', { code, cursor, language: 'javascript' });
+        }, 10));
+
+        htmlEditor.on("change", compile);
+cssEditor.on("change", compile);
+jsEditor.on("change", compile);
+
+htmlEditor.on('change', (cm) => {
+  const code = cm.getValue();
+  socket.emit('html change', code);
+});
+
+cssEditor.on('change', (cm) => {
+  const code = cm.getValue();
+  socket.emit('css change', code);
+});
+
+jsEditor.on('change', (cm) => {
+  const code = cm.getValue();
+  socket.emit('js change', code);
+});
+
+function run(){		
+  var htmlCode=htmlEditor.getValue();			
+  let cssCode="<style>"+cssEditor.getValue()+"</style>";
+  let scriptCode=jsEditor.getValue();
+  let output =document.querySelector(".outputContainer #output");
+  output.contentDocument.body.innerHTML=htmlCode+cssCode;
+  output.contentWindow.eval(scriptCode);
+}
+
+document.querySelectorAll('.clear').forEach((clear) =>
+
+  clear.addEventListener('click', (e) => {
+    const textareaId = e.target.getAttribute('data-textarea'); 
+    console.log(textareaId);
+    const editor = window[textareaId + 'Editor']; 
+    console.log(editor);
+    editor.setValue(''); 
+    localStorage.setItem(`livecode-${textareaId}`, JSON.stringify('')); 
+    compile(); 
+  })
+);
+
+
+var themeSelect = document.getElementById('theme-select');
+
+themeSelect.addEventListener('change', function() {
+  var selectedTheme = themeSelect.value;
+  htmlEditor.setOption('theme', selectedTheme);
+  cssEditor.setOption('theme', selectedTheme);
+  jsEditor.setOption('theme', selectedTheme);
+});
+
+var fontSizeSelect = document.getElementById('font-size-select');
+
+fontSizeSelect.addEventListener('change', function() {
+  var selectedFontSize = fontSizeSelect.value;
+  htmlEditor.getWrapperElement().style.fontSize = selectedFontSize;
+  cssEditor.getWrapperElement().style.fontSize = selectedFontSize;
+  jsEditor.getWrapperElement().style.fontSize = selectedFontSize;
+});
+
+function copyToClipboard(editorId) {
+  var editor;
+  switch (editorId) {
+    case 'html':
+      editor = htmlEditor;
+      break;
+    case 'css':
+      editor = cssEditor;
+      break;
+    case 'js':
+      editor = jsEditor;
+      break;
+    default:
+      console.error('Invalid editor ID');
+      return;
+  }
+
+  var editorValue = editor.getValue().trim();
+  if (editorValue === "") {
+    alert("Editor is empty. Nothing to copy.");
+    return;
+  }
+
+  navigator.clipboard.writeText(editorValue)
+    .then(() => {
+      alert("Text copied to clipboard");
+    })
+    .catch(err => {
+      console.error("Failed to copy: ", err);
+    });
+}
+
+async function saveProject() {
+
+  try {
+    const htmlContent = window['htmlEditor'].getValue();
+    const cssContent = window['cssEditor'].getValue();
+    const jsContent = window['jsEditor'].getValue();
+  
+    const notificationElement = document.createElement('div');
+    notificationElement.textContent = 'Saving project...';
+    notificationElement.style.position = 'fixed';
+    notificationElement.style.bottom = '20px';
+    notificationElement.style.right = '20px';
+    notificationElement.style.padding = '10px';
+    notificationElement.style.backgroundColor = '#333';
+    notificationElement.style.color = '#fff';
+    notificationElement.style.borderRadius = '5px';
+    document.body.appendChild(notificationElement);
+
+    const directoryHandle = await window.showDirectoryPicker();
+
+    const htmlFileHandle = await directoryHandle.getFileHandle("index.html", { create: true });
+    const htmlWritable = await htmlFileHandle.createWritable();
+    await htmlWritable.write(htmlContent);
+    await htmlWritable.close();
+
+    const cssFileHandle = await directoryHandle.getFileHandle("styles.css", { create: true });
+    const cssWritable = await cssFileHandle.createWritable();
+    await cssWritable.write(cssContent);
+    await cssWritable.close();
+
+    const jsFileHandle = await directoryHandle.getFileHandle("script.js", { create: true });
+    const jsWritable = await jsFileHandle.createWritable();
+    await jsWritable.write(jsContent);
+    await jsWritable.close();
+
+    notificationElement.textContent = 'Project saved successfully!';
+    console.log("Project saved successfully!");
+    setTimeout(() => {
+      document.body.removeChild(notificationElement);
+    }, 2000);
+  } catch (err) {
+    console.error("Error saving project:", err);
+  }
+}
+
+document.querySelector('.save-btn').addEventListener('click', saveProject);
+document.querySelectorAll('.maximize').forEach(button => {
+  button.addEventListener('click', () => {
+    const wrapper = button.closest('.wrapper');
+    const codeMirror = wrapper.querySelector('.CodeMirror');
+    
+    wrapper.classList.toggle('fullscreen');
+    codeMirror.style.height = wrapper.classList.contains('fullscreen') ? '750px' : '150px';
+  });
+});
+
+
+function compile() {
+  try {
+    var htmlCode = htmlEditor.getValue();
+    let cssCode = "<style>" + cssEditor.getValue() + "</style>";
+    let scriptCode = jsEditor.getValue();
+    let output = document.querySelector(".outputContainer #output");
+    output.contentDocument.body.innerHTML = htmlCode + cssCode;
+    output.contentWindow.eval(scriptCode);
+    document.getElementById('errorMessages').innerHTML = ''; 
+  } catch (err) {
+    let errorMessage = '<div class="errorMessage">' + err.message;
+    
+ 
+    let lineNumberMatch = err.stack.match(/<anonymous>:(\d+):(\d+)/);
+    if (lineNumberMatch && lineNumberMatch.length >= 3) {
+      let lineNumber = parseInt(lineNumberMatch[1], 10);
+      errorMessage += ' (Line ' + lineNumber + ')';
+    }
+    
+    errorMessage += '</div>';
+    document.getElementById('errorMessages').innerHTML += errorMessage; 
+  }
+}
+
+        socket.on('code change', (data) => {
+            const { code, cursor, language } = data;
+            const editor = language === 'html' ? htmlEditor : language === 'css' ? cssEditor : jsEditor;
+            const currentCursor = editor.getCursor();
+            if (code !== editor.getValue()) {
+                editor.setValue(code);
+                if (cursor && cursor.line !== currentCursor.line && cursor.ch !== currentCursor.ch) {
+                    editor.setCursor(cursor);
+                }
+            }
+        });
+
+        // Event listener for receiving room creation confirmation from the server
+        socket.on('room created', (roomId) => {
+            document.getElementById('room-id').value = roomId;
+        });
+    </script>
+</body>
+</html>
