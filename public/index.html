@@ -280,18 +280,15 @@ function run(){
   output.contentWindow.eval(scriptCode);
 }
 
-document.querySelectorAll('.clear').forEach((clear) =>
-
+document.querySelectorAll('.clear').forEach(clear => {
   clear.addEventListener('click', (e) => {
     const textareaId = e.target.getAttribute('data-textarea'); 
-    console.log(textareaId);
-    const editor = window[textareaId + 'Editor']; 
-    console.log(editor);
+    const editor = textareaId === 'html' ? htmlEditor : textareaId === 'css' ? cssEditor : jsEditor;
     editor.setValue(''); 
     localStorage.setItem(`livecode-${textareaId}`, JSON.stringify('')); 
     compile(); 
-  })
-);
+  });
+});
 
 
 var themeSelect = document.getElementById('theme-select');
@@ -345,12 +342,11 @@ function copyToClipboard(editorId) {
 }
 
 async function saveProject() {
-
   try {
-    const htmlContent = window['htmlEditor'].getValue();
-    const cssContent = window['cssEditor'].getValue();
-    const jsContent = window['jsEditor'].getValue();
-  
+    const htmlContent = htmlEditor.getValue();
+    const cssContent = cssEditor.getValue();
+    const jsContent = jsEditor.getValue();
+
     const notificationElement = document.createElement('div');
     notificationElement.textContent = 'Saving project...';
     notificationElement.style.position = 'fixed';
@@ -390,6 +386,7 @@ async function saveProject() {
 }
 
 document.querySelector('.save-btn').addEventListener('click', saveProject);
+
 document.querySelectorAll('.maximize').forEach(button => {
   button.addEventListener('click', () => {
     const wrapper = button.closest('.wrapper');
