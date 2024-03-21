@@ -32,7 +32,6 @@
     
 </head>
 <body>
-    <!-- <script type="text/javascript" src="app.js"></script> -->
   
     <div class="row">
         <div class="column">
@@ -40,7 +39,6 @@
         <h1 style="margin-left: 20px; color: #fff;">Live Code Editor</h1>   
       </div>
       </div>
-      
       <div class="column">
         <div class="row">
       <div class="column">
@@ -81,8 +79,8 @@
       </div>
 
       <input type="text" id="room-id" placeholder="Enter Room ID">
-      <button id="join-room">Join Room</button>
-      <button id="create-room">Create Room</button>
+      <button id="join-room" onclick="()=>{alert('User Joined')}">Join Room</button>
+      <button id="create-room" onclick="()=>{alert('Room Created')}">Create Room</button>
       <div class="row1">
       <div class="column">
       <div class="editorContainer">
@@ -426,6 +424,36 @@ function compile() {
         socket.on('room created', (roomId) => {
             document.getElementById('room-id').value = roomId;
         });
+        socket.on('user joined', (userId) => {
+    appendUser(userId);
+});
+
+// Event listener for receiving notification when a user leaves the room
+socket.on('user disconnected', (userId) => {
+    removeUser(userId);
+});
+
+// Function to append a user to the users list
+function appendUser(userId) {
+    const userList = document.getElementById('users-list');
+    const userElement = document.createElement('li');
+    userElement.textContent = userId;
+    userList.appendChild(userElement);
+    console.log(userId)
+}
+
+// Function to remove a user from the users list
+function removeUser(userId) {
+    const userList = document.getElementById('users-list');
+    const userElements = userList.getElementsByTagName('li');
+    for (let i = 0; i < userElements.length; i++) {
+        if (userElements[i].textContent === userId) {
+            userList.removeChild(userElements[i]);
+            break;
+        }
+    }
+}
+        
     </script>
 </body>
 </html>

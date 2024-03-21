@@ -260,10 +260,11 @@ h2 {
 #join-room, #create-room{
   font-family: 'Lato', sans-serif;
   padding: 8px 15px;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #fff;
   font-size: 16px;
   background-color: #2bbd91;
+  cursor: pointer;
 }
 
 #room-id{
@@ -271,4 +272,5 @@ h2 {
     width: 300px;
     border-radius: 5px ;
     margin-left: 20px;
+    
 }
