@@ -33,20 +33,20 @@
 </head>
 <body>
     <!-- <script type="text/javascript" src="app.js"></script> -->
-    <input type="text" id="room-id" placeholder="Enter Room ID">
-    <button id="join-room">Join Room</button>
-    <button id="create-room">Create Room</button>
+  
     <div class="row">
         <div class="column">
         <div class="column">
         <h1 style="margin-left: 20px; color: #fff;">Live Code Editor</h1>   
       </div>
       </div>
+      
       <div class="column">
         <div class="row">
       <div class="column">
         <h1 style="margin-left: 50px;color: #fff;">Output</h1>
       </div>
+
       <div class="column" id="theme">
         <div class="row" >
         <h4 style="color: #fff;">Font Size</h4>
@@ -57,6 +57,7 @@
         </select>
       </div>
       </div>
+
       <div class="column" id="theme">
         <div class="row">
         <h4 style="color: #fff;">Themes</h4>
@@ -78,9 +79,13 @@
       </div>
       </div>
       </div>
+
+      <input type="text" id="room-id" placeholder="Enter Room ID">
+      <button id="join-room">Join Room</button>
+      <button id="create-room">Create Room</button>
       <div class="row1">
-        <div class="column">
-        <div class="editorContainer">
+      <div class="column">
+      <div class="editorContainer">
       
           <div class="wrapper">
             <div class="title">
@@ -103,7 +108,6 @@
             </button>
           </div>
       
-      
           <div class="wrapper">
             <div class="title">
               <div class="main-title">
@@ -124,6 +128,7 @@
               </svg>
             </button>
           </div>
+
        <div class="wrapper">
             <div class="title">
               <div class="main-title">
@@ -155,50 +160,36 @@
             </div>
         </div>
 
-    <!-- <div>
-        <h3>HTML</h3>
-        <textarea id="html-editor" class="code-editor" placeholder="HTML code"></textarea>
-    </div>
-
-    <div>
-        <h3>CSS</h3>
-        <textarea id="css-editor" class="code-editor" placeholder="CSS code"></textarea>
-    </div>
-
-    <div>
-        <h3>JavaScript</h3>
-        <textarea id="js-editor" class="code-editor" placeholder="JavaScript code"></textarea>
-    </div> -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/xml/xml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/css/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closebrackets.min.js"></script>
-    <script src="codemirror/addon/edit/closetag.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closetag.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
     <script>
         const socket = io();
         var html = document.getElementById('html').innerHTML;
-var css = document.getElementById('css');
-var js = document.getElementById('js');
-var code = document.getElementById('output').contentWindow.document;
+        var css = document.getElementById('css');
+        var js = document.getElementById('js');
+        var code = document.getElementById('output').contentWindow.document;
 
-function compile() {
-  var htmlCode = htmlEditor.getValue();
-  let cssCode = "<style>" + cssEditor.getValue() + "</style>";
-  let scriptCode = jsEditor.getValue();
-  let output = document.querySelector(".outputContainer #output");
-  output.contentDocument.body.innerHTML = htmlCode + cssCode;
-  output.contentWindow.eval(scriptCode);
-}
+        function compile() {
+          var htmlCode = htmlEditor.getValue();
+          let cssCode = "<style>" + cssEditor.getValue() + "</style>";
+          let scriptCode = jsEditor.getValue();
+          let output = document.querySelector(".outputContainer #output");
+          output.contentDocument.body.innerHTML = htmlCode + cssCode;
+          output.contentWindow.eval(scriptCode);
+        }
 
         const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html'), {
             lineNumbers: true,
-            mode: 'htmlmixed', 
+            mode: 'text/html', 
             autoCloseTags: true, 
-            autoCloseBrackets: true 
+            autoCloseBrackets: true
         });
 
         const cssEditor = CodeMirror.fromTextArea(document.getElementById('css'), {
@@ -215,10 +206,8 @@ function compile() {
 
         let lastCode='';
 
-        // Store cursor positions for each editor
         let htmlCursor=null, cssCursor=null, jsCursor=null;
 
-        // Event listeners for Join Room and Create Room buttons
         document.getElementById('join-room').addEventListener('click', () => {
             const roomId = document.getElementById('room-id').value.trim();
             if (roomId) {
@@ -230,7 +219,6 @@ function compile() {
             socket.emit('create room');
         });
 
-        // Event listeners for code changes in each editor
         htmlEditor.on('change', _.debounce(() => {
             const code = htmlEditor.getValue();
             if(code!= lastCode){
