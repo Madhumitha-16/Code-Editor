@@ -101,7 +101,7 @@ h2 {
 
 .CodeMirror {
   width: 100% !important;
-  /* height: 150px; */
+  height: 150px;
   max-width: 750px;
   
 }
@@ -180,7 +180,7 @@ h2 {
   opacity: 0.75;
   cursor: pointer;
   z-index: 2;
-  /* Adjust this value as needed */
+ 
 }
 
 .wrapper:hover .clear {
