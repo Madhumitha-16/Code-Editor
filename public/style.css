@@ -101,7 +101,9 @@ h2 {
 
 .CodeMirror {
   width: 100% !important;
-  height: 150px;
+  /* height: 150px; */
+  max-width: 750px;
+  
 }
 
 .wrapper {
@@ -273,4 +275,8 @@ h2 {
     border-radius: 5px ;
     margin-left: 20px;
     
+}
+.wrapper.fullscreen .CodeMirror {
+  width: 100%;
+  max-width: 2000px; 
 }

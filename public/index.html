@@ -190,19 +190,22 @@
           lineNumbers: true,
           mode: 'text/html',
           autoCloseTags: true,
-          autoCloseBrackets: true
+          autoCloseBrackets: true,
+          lineWrapping:true
         });
 
         const cssEditor = CodeMirror.fromTextArea(document.getElementById('css'), {
           lineNumbers: true,
           mode: 'css',
-          autoCloseBrackets: true
+          autoCloseBrackets: true,
+          lineWrapping:true
         });
 
         const jsEditor = CodeMirror.fromTextArea(document.getElementById('js'), {
           lineNumbers: true,
           mode: 'javascript',
-          autoCloseBrackets: true
+          autoCloseBrackets: true,
+          lineWrapping:true
         });
 
         let lastCode = '';
@@ -394,8 +397,11 @@
             const wrapper = button.closest('.wrapper');
             const codeMirror = wrapper.querySelector('.CodeMirror');
 
-            wrapper.classList.toggle('fullscreen');
+            wrapper.classList.toggle('fullscreen'); 
             codeMirror.style.height = wrapper.classList.contains('fullscreen') ? '750px' : '150px';
+            
+            
+          
           });
         });
 
