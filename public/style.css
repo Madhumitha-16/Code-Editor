@@ -97,7 +97,10 @@ h2 {
   height: 100vh;
   user-select: none;
   border-bottom: 20px solid hsl(225, 6%, 25%);
+  
 }
+
+
 
 .CodeMirror {
   width: 100% !important;
@@ -248,16 +251,16 @@ h2 {
   color: #721c24; 
 }
 
-#errorWindow {
+.errorWindow {
   background-color: #f8d7da; 
   color: #721c24; 
-  padding: 10px 0px 0px 0px;
-  margin-top: 10px; 
-  border: 1px solid #f5c6cb; 
+  bottom: 0;
+  margin-left: -750px;
+  width: 198% ; /* Adjust width as needed */
+  padding: 10px;
   border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box; 
-  overflow-wrap: break-word;  
+  
+  
 }
 #join-room, #create-room{
   font-family: 'Lato', sans-serif;

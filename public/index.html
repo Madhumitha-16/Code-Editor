@@ -155,10 +155,10 @@
     <div class="column">
       <div class="outputContainer" style="background-color: #fff; border-radius: 10px;">
         <iframe id="output" title="output" frameborder="0" width="100%" height="100%"></iframe>
-        <div id="errorWindow">
-          <h3 class="errorTitle">Console</h3>
-          <div id="errorMessages"></div>
-        </div>
+      </div>
+      <div class="errorWindow">
+        <h3 class="errorTitle">Console</h3>
+        <div id="errorMessages"></div>
       </div>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
@@ -464,7 +464,6 @@
           console.log(userId)
         }
 
-        // Function to remove a user from the users list
         function removeUser(userId) {
           const userList = document.getElementById('users-list');
           const userElements = userList.getElementsByTagName('li');
